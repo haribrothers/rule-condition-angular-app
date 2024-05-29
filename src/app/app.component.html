@@ -1,0 +1,42 @@
+<div class="flex w-100 h-full">
+
+  <div class="flex flex-col flex-fill w-full">
+    <nav class="bg-blue-500 w-full">
+      <div class="px-4">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <a class="text-white text-xl font-bold" href="/">My App</a>
+          </div>
+          <div class="flex items-center">
+            <a class="text-white hover:text-gray-300 px-4" href="/">Home</a>
+            <a class="text-white hover:text-gray-300 px-4" href="/about">About</a>
+            <a class="text-white hover:text-gray-300 px-4" href="/contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="flex-1 p-4">
+      <form [formGroup]="ruleForm">
+        <div class="flex flex-col gap-2">
+          <ng-container *ngFor="let rule of rules.controls">
+            <app-rule-group [showLine]="false"  [ruleForm]="getRule(rule)" (onAddRule)="addRule($event, rule)"></app-rule-group>
+          </ng-container>
+          <div>
+            <button (click)="getJson()"
+              class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex gap-2 justify-center items-center">
+              Get JSON
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+    <footer class="bg-gray-800 text-white py-4 w-full">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2023 My App. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+</div>
