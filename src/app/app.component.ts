@@ -49,12 +49,7 @@ export class AppComponent {
   createRuleGroup() {
     return this.fb.group({
       operator: [false, Validators.required],
-      conditions: this.fb.array([this.createSimpleCondition(), this.createSimpleCondition(), 
-        this.fb.group({
-          operator: [false, Validators.required],
-          conditions: this.fb.array([this.createSimpleCondition(), this.createSimpleCondition()])
-        })
-      ])
+      conditions: this.fb.array([this.createSimpleCondition()])
     });
   }
 
@@ -66,16 +61,8 @@ export class AppComponent {
     });
   }
 
-
-
-
-
   createComplexCondition() {
     return this.createRuleGroup();
-  }
-
-  createsRulesArray() {
-    // return this.fb.array([this.createRule()]);
   }
 
   deleteRule(index: number) {
