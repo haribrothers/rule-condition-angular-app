@@ -12,6 +12,7 @@ import { CommonModule, formatCurrency } from '@angular/common';
 })
 export class RuleGroupComponent {
   @Input() ruleForm!: FormGroup;
+  @Input() ruleGroupName: string = ''
   @Input() showLine = true;
   @Output() onAddRule = new EventEmitter<{type: string, form: FormGroup}>();
   @Output() onDelete = new EventEmitter<{ rule: FormGroup}>();
