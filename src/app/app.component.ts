@@ -48,7 +48,7 @@ export class AppComponent {
 
   createRuleGroup() {
     return this.fb.group({
-      operator: [false, Validators.required],
+      operator: [true, Validators.required],
       conditions: this.fb.array([this.createSimpleCondition()])
     });
   }
@@ -75,8 +75,54 @@ export class AppComponent {
     }
   }
 
+  generateSimpleCondition(condition: AbstractControl) {
+    return condition.value as {fact: string, operator: string, value: string}
+  }
+
+  generateGroupCondition(condition: AbstractControl): any {
+    let conds = []
+    // console.log(condition);
+    for(let innerCondition of (condition.get('conditions') as FormArray).controls) {
+      if(innerCondition.get('conditions')) {
+        conds.push(this.generateGroupCondition(innerCondition));
+      } else {
+        conds.push(this.generateSimpleCondition(innerCondition))
+      }
+    }
+
+    // let operator: string = condition.get('operator')?.value ? 'and': 'or';
+    if(condition.get('operator')?.value){
+      return {
+        "and": [
+          ...conds
+        ]
+      }
+    } else {
+      return {
+        "or": [
+          ...conds
+        ]
+      }
+    }
+    
+  }
+
   getJson() {
-    console.log(this.ruleForm.value);
+    let rules = [];
+    for(let rule of this.rules.controls) {
+      rules.push(this.generateGroupCondition(rule))
+    }
+    
+    console.log(JSON.stringify(rules));
+  }
+
+  isSimple(condition: AbstractControl) {
+    if(condition.get('conditions')) {
+      console.log(true)
+      return false;
+    }
+    console.log(false)
+    return true;
   }
 
 }

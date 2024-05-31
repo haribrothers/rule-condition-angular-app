@@ -33,13 +33,9 @@ export class RuleGroupComponent {
 
   isSimple(condition: AbstractControl) {
     if(condition.get('conditions')) {
-      console.log(true)
       return false;
     }
-    console.log(false)
     return true;
-    // console.log(condition.get('operator'))
-    // return condition.get('operator');
   }
 
   onAdd(type: 'rule'| 'rulegroup') {
